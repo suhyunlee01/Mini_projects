@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="timer"></div>
+    <button id="startBtn">시작</button>
+    <script>
+        var button = document.getElementById("startBtn");
+        var hour = 0;
+        var minute = 0;
+        var second = 0;
+        button.addEventListener("click", function Timer(){        // click 이벤트 발생 시 Timer 함수 호출
+        setInterval(function TickTock(){          //Timer 함수 안에서 setInterval 메소드 호출
+            second++
+            if(second>59){
+                second = 0;
+                minute++;
+            }
+            if(minute>59){
+                minute = 0;
+                hour++
+            }
+            document.getElementById("timer").innerText = hour + ":" + minute + ":" + second;
+        }, 1000);
+        });
+    </script>
+</body>
+</html>
