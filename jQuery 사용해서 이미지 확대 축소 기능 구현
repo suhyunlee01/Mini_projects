@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>form2</title>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <style>
+        img{
+            font-size: 20px;
+            width: 300px;
+            height: 500px;
+        }
+    </style>
+</head>
+
+<body>
+    <label>이미지를 크게 보고 싶으시면 확대 버튼을 클릭해주세요.</label><br>
+    <img src="img/1.jpg" id="block">
+    <button id="go">
+        확대
+    </button>
+   <script>
+
+    //애니메이팅 되지 않고 오리지널인 초기상태 선언
+    var isAnimating = false; //초기상태에서는 false상태이니까 if else문에서 else실행됨
+    var original = true;
+
+    //버튼 클릭 시 함수 호출
+    $('button').on("click",function(){
+        //애니메이션 중일 때 클릭하면? 멈추기
+        if(isAnimating){
+            $('#block').stop(); //만약 애니메이팅 중이라면 애니메이팅을 .stop한다.
+            isAnimating = false; //애니메이팅이 멈췄음을 알리기 위해 false 선언한다.
+
+            if(!original){
+                goback(); // 그 후 block이 애니메이션으로 인해 original에서 바뀌었으면 다시 원 상태로 복구한다. 
+            }
+        }
+        //애니메이션 중이 아닐 때 클릭하면? 애니메이션 실행하기
+        else{
+            $('#block').animate({ //애니메이션 중이 아닌 상태인 false라면, 애니메이션을 실행한다.
+                width: "400px", //original에서 가로 세로 크기를 바꾸는 애니메이션 진행.
+                height: "600px"
+            })
+            original = false; //애니메이션이 진행되어서 형태가 바뀌었으니 original = false로 더이상 original 아님을 선언
+            isAnimating = true; // 애니메이션 중이기 때문에 true로 상태 선언
+        }
+    })
+    function goback(){ //원상태로 돌아가기 위한 함수
+        $('#block').animate({
+                width: "300px",
+                height: "500px"
+            })
+    }
+   </script>
+</body>
+</html>
