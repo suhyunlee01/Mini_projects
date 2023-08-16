@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            display: flex;
+            justify-content: center;
+        }
+        #container{
+            background-color: rgb(253, 217, 173);
+            color: white;
+            width: 500px;
+            height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            border-radius: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>음악을 들어보세요!</h1>
+        <audio src="audio/SleepAway.mp3" type="audio/mp3" autoplay controls></audio> 
+        <!-- controls가 기본으로 제공된다 -->
+    </div>
+</body>
+</html>
