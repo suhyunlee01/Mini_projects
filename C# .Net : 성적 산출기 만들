@@ -1,0 +1,62 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace conditional
+{
+    public partial class textEng : Form
+    {
+        public textEng()
+        {
+            InitializeComponent();
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textEng_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnresult_Click(object sender, EventArgs e)
+        {
+            int kuk = int.Parse(textKook.Text);
+            int eng = int.Parse(textENGl.Text);
+            int math = int.Parse(textMath.Text);
+
+            int total = kuk + eng + math;
+            int avg = total / 3;
+
+            if (avg >= 90 && avg <= 100)
+            {
+                label1.Text = "A";
+            }
+            else if (avg < 90 && avg >= 70)
+            {
+                label1.Text = "B";
+            }
+            else if (avg < 70 && avg >= 0)
+            {
+                label1.Text = "F";
+            }
+            else
+            {
+                label1.Text = "유효하지 않습니다.";
+            }
+        }
+    }
+}
