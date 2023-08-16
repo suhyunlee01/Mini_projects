@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #mycanvas{
+            background-color: beige;
+            height: 500px;
+            width: 1000px;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="mycanvas"></canvas>
+    <script>
+        var canvas = document.getElementById("mycanvas");
+        var ctx = canvas.getContext('2d');
+        var x = 10;
+
+        function draw(value){
+            ctx.fillStyle = "blue";
+            ctx.fillRect(value, 10, 50, 50);
+        }
+
+        function animate(){
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            x=x+2;
+            draw(x);
+            requestAnimationFrame(animate); //자기 자신을 재호출
+        }
+        animate();
+    </script>
+</body>
+</html>
