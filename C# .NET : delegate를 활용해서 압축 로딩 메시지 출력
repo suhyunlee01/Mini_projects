@@ -1,0 +1,62 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+ 
+
+//CSR 클라이언트 사이드 랜더링을 하는 과정을 담아보았음.
+
+namespace archive
+{
+    delegate bool ComProg(int nFile);
+
+    class Archive
+    {
+        public static bool Compress(int nFile, ComProg prog)
+        {
+            for (int i = 0; i < nFile; i++)
+            {
+                if (prog(i) == false)
+                {
+                    return false;
+                }
+                System.Threading.Thread.Sleep(500);
+                //0.5초동안 딜레이한다는 의미 즉, 반복문 한 번 할 때마다 .5초씩 딜레이 시킴 일부러!
+            }
+            return true;
+        }
+    }
+
+    internal class Program
+    {
+        public static bool Prograss(int num) //prog(i)로 전달한 i를 num으로 받아와서 클라이언트에서 출력
+        {
+            Console.WriteLine($"{num + 1}번째 파일을 압축하는 중...");
+            //Archive 클래스에서 바로 출력하지 않고 내쪽internal(클라이언트)으로 가져와서 출력함.
+
+            if (Console.KeyAvailable) //key값을 받을 수 있음
+            {
+                ConsoleKeyInfo cki = Console.ReadKey();
+                if(cki.Key == ConsoleKey.Q) //입력한 키가 Q일 경우
+                {
+                    return false; //Q버튼 입력 시 
+                }
+            }
+            return true;
+        }
+
+        //파일 압축하기
+        static void Main(string[] args)
+        {
+            //특정 클래스 내부의 static함수의 경우는 클래스이름.static함수(); 를 하면 된다. 객체.static함수();가 아님!
+            if (Archive.Compress(100, Prograss) == true) {
+                Console.WriteLine("모든 파일을 압축했습니다.");
+            }
+            else
+            {
+                Console.WriteLine("취소되었습니다.");
+            }
+        }
+    }
+}
