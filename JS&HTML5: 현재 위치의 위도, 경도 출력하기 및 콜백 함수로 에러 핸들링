@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>location</title>
+</head>
+<body>
+    <script>
+        function Myposition(){
+            if(navigator.geolocation){
+                navigator.geolocation.getCurrentPosition(Success, ifError); // (성공콜백, 에러콜백, 옵션콜백) 순서임. 인자도 관련 정보 자동 전달됨
+            }
+        }
+        function Success(position){
+            var lat = position.coords.latitude;
+            var lng = position.coords.longitude;
+            document.getElementById("result").innerHTML = "위도: " + lat + "경도: " + lng;
+        }
+        function ifError(error){ //에러 콜백 인자
+            switch(error.code){
+                case error.PERMISSION_DENIED: //접근권한 없을 시
+                document.getElementById("result").innerHTML = "위치 정보에 대한 접근 권한이 필요합니다."
+                break;
+
+                case error.POSTION_UNAVAILABLE:
+                document.getElementById("result").innerHTML = "위치 정보를 구할 수 없습니다."
+                break;
+
+                case error.TIMEOUT:
+                document.getElementById("result").innerHTML = "시간 제한을 초과했습니다.";
+                break;
+            }
+        }
+    </script>
+
+    <button onclick="Myposition()">현재 내 위치 알아보기</button>
+    <div id="result"></div>
+</body>
+</html>
