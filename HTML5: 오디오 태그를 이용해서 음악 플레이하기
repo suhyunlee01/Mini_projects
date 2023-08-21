@@ -5,28 +5,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        body{
-            display: flex;
-            justify-content: center;
-        }
-        #container{
-            background-color: rgb(253, 217, 173);
-            color: white;
-            width: 500px;
-            height: 250px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .container{
             flex-direction: column;
-            border-radius: 14px;
+            width: 500px;
+            height: 280px;
+            background-color: antiquewhite;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container button{
+            width: 100px;
+            height: 20px;
+            background-color: rgb(77, 118, 255);
+            color: white;
+            border: none;
+            border-radius: 8px;
         }
     </style>
 </head>
 <body>
-    <div id="container">
-        <h1>음악을 들어보세요!</h1>
-        <audio src="audio/SleepAway.mp3" type="audio/mp3" autoplay controls></audio> 
-        <!-- controls가 기본으로 제공된다 -->
+    <div class="container">
+        <audio id="music" src="audio/SleepAway.mp3" type="audio/mp3"></audio>
+        <div class="button">
+            <button onclick="musicPlay()">재생</button>
+            <button onclick="musicPause()">멈춤</button>
+        </div>
+        <div id="time"></div>
     </div>
+    <script>
+        var music = document.getElementById("music");
+        function musicPlay(){
+            music.play();
+        }
+        function musicPause(){
+            music.pause();
+        }
+        music.addEventListener("timeupdate", function(){document.getElementById("time").innerHTML
+            = Math.floor(music.currentTime) + "/" + Math.floor(music.duration) + "초"
+        })
+    </script>
 </body>
 </html>
