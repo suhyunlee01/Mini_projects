@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Map</title>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg&callback=initMap&v=weekly"></script>
+</head>
+<body>
+    <script>
+        var markerIcon = new google.maps.MarkerImage("marker.jpg");
+
+        function MyPosition(){
+            if(navigator.geolocation){
+                watcherId = navigator.geolocation.getCurrentPosition(Success, ifError); // watchPosition은 리턴값 존재
+            }
+        }
+        function Success(position){
+            var lat = position.coords.latitude;
+            var lng = position.coords.longitude;
+            document.getElementById("result").innerHTML = "위도: " + lat + "경도: " + lng;
+            var latlng = new google.maps.LatLng(lat, lng); //위도 경도 한번에 전달하는 변수
+            
+            var options = {
+                zoom: 15,
+                center: latlng,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+            var map = new google.maps.Map(document.getElementById("map"), options);
+
+            var marker = new google.maps.Marker({
+                map: map,
+                icon: markerIcon,
+                title: "현재 내 위치",
+                position: latlng
+            });
+        }
+
+        function ifError(error){ //에러 콜백 인자
+            switch(error.code){
+                case error.PERMISSION_DENIED: //접근권한 없을 시
+                document.getElementById("result").innerHTML = "위치 정보에 대한 접근 권한이 필요합니다."
+                break;
+
+                case error.POSTION_UNAVAILABLE:
+                document.getElementById("result").innerHTML = "위치 정보를 구할 수 없습니다."
+                break;
+
+                case error.TIMEOUT:
+                document.getElementById("result").innerHTML = "시간 제한을 초과했습니다.";
+                break;
+            }
+        }
+    </script>
+
+    <button onclick="MyPosition()">내 현재 위치 정보</button>
+    <div id="map" style="width:100%; height: 500px;"></div>
+    <div id="result"></div>
+
+</body>
+</html>
