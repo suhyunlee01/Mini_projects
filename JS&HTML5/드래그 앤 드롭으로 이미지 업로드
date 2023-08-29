@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #container{
+            width: 600px;
+            height: 800px;
+            border: red dashed 2px;
+        }
+    </style>
+</head>
+<body>
+    <div id="container" ondragenter="dragEnter(event)" ondrop="drop(event)" ondragover="dragOver(event)"></div>
+    <script>
+        const dropArea = document.getElementById("container");
+        
+
+        function dragEnter(e){
+            e.preventDefault();
+        }
+        function dragOver(e){
+            e.preventDefault();
+        }
+        function drop(e){
+            var file = e.dataTransfer.files[0];
+            var reader = new FileReader();
+
+            reader.addEventListener("load", function(e){
+                const dropImage = document.createElement("img"); //로드할 때마다 img 엘리먼트 생성하게함. 이러면 여러개 이미지 저장할 수 있음.
+                dropImage.src = reader.result; //readAsDataURL(file)로 읽은 URL을 소스로 저장
+                dropArea.appendChild(dropImage);
+            })
+
+            reader.readAsDataURL(file);
+            e.preventDefault();
+        }
+    </script>
+</body>
+</html>
