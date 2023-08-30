@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>todos</title>
+    <style>
+        #todoContainer, #clear{
+            margin-bottom: 16px;
+            width: 500px;
+            height: 140px;
+            padding: 12px;
+            background-color: antiquewhite;
+            cursor: grab;
+        }
+    </style>
+</head>
+<body>
+    <h3>할 일</h3>
+    <div id="todoContainer" ondragenter="dragEnter(event)" ondragover="dragOver(event)" ondrop="drop(event)">
+        <p  id="todos1" draggable="true" ondragstart="dragStartHandler(event)">할 일</p>
+        <p  id="todos2" draggable="true" ondragstart="dragStartHandler(event)">할 일 2</p>
+        <p  id="todos3" draggable="true" ondragstart="dragStartHandler(event)">할 일 3</p>
+    </div>
+
+    <h3>완료</h3>
+    <div id="clear" ondragenter="dragEnter(event)" ondragover="dragOver(event)" ondrop="drop(event)"></div>
+   
+    <script>
+       
+        function dragStartHandler(e){
+            e.dataTransfer.setData("text", e.target.id);
+        }
+        function dragEnter(e){
+            e.preventDefault();
+        }
+        function dragOver(e){
+            e.preventDefault();
+        }
+        function drop(e){
+            var TextID = e.dataTransfer.getData("text");
+            e.target.appendChild(document.getElementById(TextID));
+           
+            var id = e.target.getAttribute("id");
+            if(id=='todoContainer'){
+                alert("완료 항목에서 제거했습니다.");
+            }else{
+                alert("완료 항목에 추가했습니다.");
+            }
+
+            e.preventDefault();
+        }
+    </script>
+</body>
+</html>
