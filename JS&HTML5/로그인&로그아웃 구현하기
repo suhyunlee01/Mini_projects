@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로그인 로그아웃</title>
+</head>
+<body>
+    <form id="form">
+        <label for="userID">아이디</label>
+        <input id="userID" type="text" required/>
+        <label for="userPW">비밀번호</label>
+        <input id="userPW" type="password" required/>
+        <button id="btnLogIn">로그인</button>
+    </form>
+    <button id="btnLogOut">로그아웃</button>
+
+    <div id="result">로그인이 필요합니다.</div>
+    
+    <script>
+        var form = document.getElementById("form");
+        var ID = document.getElementById("userID");
+        var PW = document.getElementById("userPW");
+        var result = document.getElementById("result");
+
+        var btnLogIn = document.getElementById("btnLogIn");
+        var btnLogOut = document.getElementById("btnLogOut");
+
+        btnLogIn.addEventListener("click",logInHandler);
+        function logInHandler(){
+           if(ID.value == "user" && PW.value == "1234"){
+            sessionStorage.setItem("id", ID.value);
+            sessionStorage.setItem("pw", PW.value);
+            result.textContent  = "로그인 완료"
+            ID.value = "";
+            PW.value = "";
+            form.innerHTML = "";
+           }
+           else{
+            alert("회원정보가 존재하지 않습니다.")
+           }
+        }
+
+        btnLogOut.addEventListener("click", logOutHandler);
+        function logOutHandler(){
+            sessionStorage.clear();
+            result.textContent  = "로그인이 필요합니다."
+            ID.value = "";
+            PW.value = "";
+            form.innerHTML = `
+        <label for="userID">아이디</label>
+        <input id="userID" type="text" required/>
+        <label for="userPW">비밀번호</label>
+        <input id="userPW" type="password" required/>
+        <button id="btnLogIn">로그인</button>
+            `;
+        }
+
+    </script>
+
+</body>
+</html>
