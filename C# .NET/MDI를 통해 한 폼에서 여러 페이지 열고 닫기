@@ -1,0 +1,60 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace todo
+{
+    public partial class Form1 : Form
+    {
+        Form2 todoPage;
+        Form3 weatherPage;
+
+        public Form1()
+        {
+            InitializeComponent();
+            // 부모 폼을 MDI 컨테이너로 설정하면 자식 폼을 부모 폼 안에서 열 수 있음.
+            IsMdiContainer = true;
+
+            todoPage = new Form2();
+            todoPage.MdiParent = this;
+            weatherPage = new Form3();
+            weatherPage.MdiParent = this;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            foreach (Form form in this.MdiChildren)
+            {
+                if (form.GetType().Name == "Form3")
+                    form.Hide();
+            }
+            todoPage.Show();
+            todoPage.BringToFront();
+            todoPage.Location = new Point(0, 0);
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            foreach (Form form in this.MdiChildren)
+            {
+                if (form.GetType().Name == "Form2")
+                    form.Hide();
+            }
+            weatherPage.Show();
+            weatherPage.BringToFront();
+            weatherPage.Location = new Point(0, 0);
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            weatherPage.Hide();
+            todoPage.Hide();
+        }
+    }
+}
